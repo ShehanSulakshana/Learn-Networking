@@ -1,0 +1,47 @@
+Swith -- 1
+
+
+en
+conf t
+vlan 20
+name VL20
+vlan 30
+name VL30
+int fa0/13
+switchport mode access
+switchport access vlan 20
+int fa0/3
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 20
+switchport trunk allowed vlan add 30
+end
+
+
+
+Swith -- 0
+
+en
+conf t
+vlan 20
+name VL20
+vlan 30
+name VL30
+int fa0/4
+switchport mode access
+switchport access vlan 20
+int fa0/6
+switchport mode access
+switchport access vlan 30
+int fa0/1
+switchport mode access
+switchport access vlan 20
+int fa0/2
+switchport mode access
+switchport access vlan 30
+int fa0/3
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 20
+switchport trunk allowed vlan add 30
+end

@@ -1,0 +1,145 @@
+Switch 1
+
+en
+conf t
+vlan 10
+name VL10
+vlan 20
+name VL20
+int fa0/5
+switchport mode access
+switchport access vlan 10
+int fa0/6
+switchport mode access
+switchport access vlan 20
+int fa0/2
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+end
+
+
+Switch 2
+
+en
+conf t
+vlan 10
+name VL10
+vlan 20
+name VL20
+int fa0/5
+switchport mode access
+switchport access vlan 10
+int fa0/6
+switchport mode access
+switchport access vlan 20
+int fa0/3
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+end
+
+
+Switch 3
+
+en
+conf t
+vlan 10
+name VL10
+vlan 20
+name VL20
+int fa0/2
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+int fa0/3
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+int fa0/1
+switchport mode trunk
+switchport trunk native vlan 1
+switchport trunk allowed vlan add 10
+switchport trunk allowed vlan add 20
+end
+
+
+
+Router 1
+
+en
+conf t
+int fa0/1.10
+encapsulation dot1Q 10
+ip add 192.168.1.1 255.255.255.0
+no shut
+int fa0/1.20
+encapsulation dot1Q 20
+ip add 192.168.2.1 255.255.255.0
+no shut
+int fa0/1
+ip add 192.168.3.1 255.255.255.0
+no shut
+int se0/0/0
+ip add 192.168.4.1 255.255.255.0
+clock rate 64000
+no shut
+end
+
+
+
+Router 2
+
+en
+conf t
+int se0/0/0
+ip add 192.168.4.2 255.255.255.0
+clock rate 64000
+no shut
+int se0/0/1
+ip add 192.168.5.1 255.255.255.0
+no shut
+end
+
+
+
+Router 3
+
+en
+conf t
+int se0/0/1
+ip add 192.168.5.2 255.255.255.0
+clock rate 64000
+no shut
+int fa0/0
+ip add 192.168.6.1 255.255.255.0
+no shut
+end
+
+
+Static Routing
+
+R1
+ip route 192.168.5.0 255.255.255.0 192.168.4.2
+ip route 192.168.6.0 255.255.255.0 192.168.4.2
+
+
+R2
+ip route 192.168.1.0 255.255.255.0 192.168.4.1
+ip route 192.168.2.0 255.255.255.0 192.168.4.1
+ip route 192.168.3.0 255.255.255.0 192.168.4.1
+ip route 192.168.6.0 255.255.255.0 192.168.5.2
+
+
+R3
+ip route 192.168.1.0 255.255.255.0 192.168.5.1
+ip route 192.168.2.0 255.255.255.0 192.168.5.1
+ip route 192.168.3.0 255.255.255.0 192.168.5.1
+ip route 192.168.4.0 255.255.255.0 192.168.5.1
+
+
+

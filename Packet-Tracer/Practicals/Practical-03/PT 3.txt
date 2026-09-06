@@ -1,0 +1,16 @@
+Router -- 0
+
+en
+conf t
+hostname Dept1
+enable secret onlyforAdmins
+banner motd #Welcome to Dept router#
+
+
+Router -- 1
+
+en
+conf t
+hostname ITD1
+enable secret diyayatagindara
+banner motd #Welcome to ITD#
